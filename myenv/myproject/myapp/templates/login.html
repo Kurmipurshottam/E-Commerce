@@ -1,0 +1,126 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+<head>
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Login
+		</h2>
+	</section>	
+
+<!-- Content page -->
+
+ <!-- Content page -->
+<section class="bg0 p-t-104 p-b-116">
+    <div class="container">
+        <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {% if msg2 %}
+                    <div class="alert alert-success" role="alert">
+                        {{msg2}}
+                    </div>
+                    {% endif %}
+                    {% if msg4 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{msg4}}
+                    </div>
+                    {% endif %}
+                    {% if msg3 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{msg3}}
+                    </div>
+                    {% endif %}
+                    {% if msg5 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{msg5}}
+                    </div>
+                    {% endif %}
+                    {% if msg6 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{msg6}}
+                    </div>
+                    {% endif %}
+                    <h4 class="mtext-105 cl2 txt-center p-b-30">
+                        Login
+                    </h4>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" placeholder="Enter Email">
+                        <!-- <img class="how-pos4 pointer-none" src="{% static 'images/icons/icon-user.png' %}" alt="ICON"> -->
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="Enter Your Password">
+                        <!-- <img class="how-pos4 pointer-none" src="{% static 'images/icons/icon-lock.png' %}" alt="ICON"> -->
+                    </div>
+                    <div id="passwordHelpBlock" class="form-text text-center" style="padding-bottom: 10px;">
+                        <a href="{% url 'forget_password' %}" class="password">Forgot Password ?</a>
+                    </div>
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% comment %} <script src="{% static 'myapp/js/jquery-1.11.0.min.js' %}"></script>
+<script src="{% static 'myapp/js/plugins.js' %}"></script>
+<script src="{% static 'myapp/js/script.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+        // ragistration sucessfully 
+        document.addEventListener("DOMContentLoaded", function () {
+        {% if messages %}
+            {% for message in messages %}
+                Swal.fire({
+                    title: "{{ message }}",
+                    //text: "{{ message }}",
+                    icon: "{{ message.tags }}",
+                });
+            {% endfor %}
+        {% endif %}
+    });
+
+    // email alredy exsits
+    {% if messages %}
+        {% for message in messages %}
+            Swal.fire({
+                title: "{{ message.tags }}",
+                text: "{{ message }}",
+                icon: "{{ message.tags }}",
+            });
+        {% endfor %}
+    {% endif %}
+
+    // upassword and ucpassword can not be same show sweetalert msg
+    {% if pmsg %}
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ pmsg }}',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    });
+    {% endif %}
+</script> {% endcomment %}
+    
+
+
+    
+{% endblock %}
