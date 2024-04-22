@@ -14,9 +14,9 @@ def signup(request):
         try:
             user = User.objects.get(email = request.POST['email'])
             print(">>>>>>>>>>>>> User object : ", user)
-            msg1="Email already exists!"
-            # messages.error(request, msg1)
-            return render(request,"signup.html",{'msg1':msg1})
+            msg="Email already exists!"
+            messages.error(request, msg)
+            return render(request,"signup.html")
         except:
             try:
                 if request.POST['password'] == request.POST['cpassword']:
@@ -29,17 +29,17 @@ def signup(request):
                         user_type = request.POST['user-type'],
                     )
                     print(user.first_name)
-                    msg2 = "Your Registration Done ...."
-                    print("============",msg2)
-                    # messages.success(request, msg)
-                    return render(request,'login.html',{'msg2':msg2})
+                    msg = "Your Registration Done ...."
+                    print("============",msg)
+                    messages.success(request, msg)
+                    return render(request,'login.html')
                     # add ragistration than redirect login page
             except:
                 pass
             else:
-                msg1="Password and Confim Password Does Not Matched !!!"
-                # messages.error(request, pmsg)
-                return render(request,'signup.html',{'msg1':msg1})
+                msg="Password and Confim Password Does Not Matched !!!"
+                messages.error(request, msg)
+                return render(request,'signup.html')
     else:
         return render(request,'signup.html')
     
@@ -54,17 +54,25 @@ def login(request):
                 # condition of seller or buyer
                 if user.user_type=="buyer":
                     print("hello")
-                    return render(request,"index.html")
+                    msg="Login Successfully"
+                    messages.success(request, msg)
+                    return redirect('index')
+                    # return render(request,"index.html")
                 else:
                     print("seller site")
-                    return render(request,"seller_index.html")
+                    msg="Login Successfully"
+                    messages.success(request, msg)
+                    return redirect('seller_index')
+                    # return render(request,"seller_index.html")
                 # end seller buyer condition
             else:
-                msg3="Password does Not Match !!!!"
-                return render(request,"login.html",{'msg3':msg3})
+                msg="Password does Not Match !!!!"
+                messages.error(request, msg)
+                return render(request,"index.html")
         except:
-            msg4="Email Not Ragister Yet !!!"
-            return render(request,"login.html",{'msg4':msg4})
+            msg="Email Not Ragister Yet !!!"
+            messages.error(request, msg)
+            return render(request,"login.html")
     else:
         return render(request,"login.html")
     
@@ -79,24 +87,26 @@ def change_password(request):
                print("========Page Load new password and conifrm password match =========")
                user.password = request.POST['new_password2']
                user.save()
+               msg="Logout Successfully"
+               messages.success(request, msg)
                return redirect('logout')
            else:
                print("=============new password and conifrm password doess not match==============")
-               msg5 = "New Password conifrm  password Does not match..."
-            #    messages.error(request,msg)
+               msg = "New Password conifrm  password Does not match..."
+               messages.error(request,msg)
                if user.user_type=="buyer":
-                    return render(request,'change_password.html',{'msg5':msg5})
+                    return render(request,'change_password.html')
                else:
-                    return render(request,'seller_change_password.html',{'msg5':msg5})
+                    return render(request,'seller_change_password.html')
            
        else:
            print("======Current password does not match")
-           msg5="Current Password Does not match !!!"
-        #    messages.error(request,msg1)
+           msg="Current Password Does not match !!!"
+           messages.error(request,msg)
            if user.user_type=="buyer":
-                return render(request,'change_password.html',{'msg5':msg5})
+                return render(request,'change_password.html')
            else:
-                return render(request,'seller_change_password.html',{'msg5':msg5})
+                return render(request,'seller_change_password.html')
     else:
         if user.user_type=="buyer":
             return render(request,'change_password.html')
@@ -220,6 +230,8 @@ def logout(request):
     del request.session['first_name']
     del request.session['picture']
     print("deleted")
+    msg="Logout Successfully"
+    messages.success(request, msg)
     return redirect('login')
 
 # seller viwes start 

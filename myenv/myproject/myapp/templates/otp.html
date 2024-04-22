@@ -22,16 +22,6 @@
                 <!-- Forgot Password Form -->
                 <form id="forgotPasswordForm" method="post" action="{% url 'otp' %}">
                     {% csrf_token %}
-                    {% if msg1 %}
-                    <div class="alert alert-success" role="alert">
-                        {{msg1}}
-                    </div>
-                    {% endif %}
-                    {% if msg %}
-                    <div class="alert alert-danger" role="alert">
-                        {{msg}}
-                    </div>
-                    {% endif %}
                     <h4 class="mtext-105 cl2 txt-center p-b-30">
                         Forgot Password
                     </h4>

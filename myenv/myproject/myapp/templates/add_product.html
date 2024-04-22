@@ -23,15 +23,10 @@
 
                 <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% if msg %}
-                    <div class="alert alert-success" role="alert">
-                        {{msg}}
-                    </div>
-                    {% endif %}
 
                     <div class="bor8 m-b-30 how-pos4-parent">
-                        <select name="product_category" style="width: 29.5rem; height: 3rem;">
-                            <option style="text-align: center;">--------------------------------Select Catogory-----------------------------------</option>
+                        <select name="product_category" style="width: 35.5rem; height: 3rem;">
+                            <option style="text-align: center;">----------------------------------Select Catogory-------------------------------------</option>
                             <option value="men"  style="text-align: center;">M e n</option>                           
                             <option value="women" style="text-align: center;">W o m e n</option>
                             <option value="child" style="text-align: center;">C h i l d</option>
@@ -39,8 +34,8 @@
                     </div>
 
                     <div class="bor8 m-b-30 how-pos4-parent">
-                        <select name="product_size" style="width: 29.5rem; height: 3rem;">
-                            <option style="text-align: center;">-----------------------------------Select Size-----------------------------------</option>
+                        <select name="product_size" style="width: 35.5rem; height: 3rem;">
+                            <option style="text-align: center;">-------------------------------------Select Size-------------------------------------</option>
                             <option value="s" style="text-align: center;">S</option>                           
                             <option value="m" style="text-align: center;">M</option>
                             <option value="l" style="text-align: center;">L</option>
@@ -49,8 +44,8 @@
                     </div>
 
                     <div class="bor8 m-b-30 how-pos4-parent">
-                        <select name="product_brand" style="width: 29.5rem; height: 3rem;">
-                            <option style="text-align: center;">----------------------------------Select Brand-----------------------------------</option>
+                        <select name="product_brand" style="width: 35.5rem; height: 3rem;">
+                            <option style="text-align: center;">------------------------------------Select Brand-------------------------------------</option>
                             <option value="levis" style="text-align: center;">L e v i s</option>                           
                             <option value="roadstar" style="text-align: center;">R o a d s t a r</option>
                             <option value="nike" style="text-align: center;">N i k e</option>

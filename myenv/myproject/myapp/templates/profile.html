@@ -23,11 +23,6 @@
 
                 <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% if msg1 %}
-                    <div class="alert alert-danger" role="alert">
-                        {{msg1}}
-                    </div>
-                    {% endif %}
 
                     <div class="bor8 m-b-20 how-pos4-parent">
                         <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" value={{user.email}} readonly>
