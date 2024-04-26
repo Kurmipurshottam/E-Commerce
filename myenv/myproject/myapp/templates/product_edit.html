@@ -1,0 +1,82 @@
+{% extends "seller_header.html" %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+<head>
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Edit Product
+		</h2>
+	</section>	
+
+<!-- Content page -->
+
+<!-- Content page -->
+<section class="bg0 p-t-104 p-b-116">
+    <div class="container">
+        <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+
+                <form method="POST" action="{% url 'product_edit' pk=product.pk  %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="bor8 m-b-30 how-pos4-parent">
+                        <select name="product_category" style="width: 35.5rem; height: 3rem;">
+                            <option style="text-align: center;" disabled>----------------------------------Select Catogory-------------------------------------</option>
+                            <option value="men"  style="text-align: center;" {% if product.product_category == "Men" %} selected readonly {% endif %}>M e n</option>                           
+                            <option value="women" style="text-align: center;" {% if product.product_category == "Women" %} selected readonly {% endif %}>W o m e n</option>
+                            <option value="child" style="text-align: center;" {% if product.product_category == "Child" %} selected readonly {% endif %}>C h i l d</option>
+                        </select>
+                    </div>
+
+                    <div class="bor8 m-b-30 how-pos4-parent">
+                        <select name="product_size" style="width: 35.5rem; height: 3rem;">
+                            <option style="text-align: center;" disabled>-------------------------------------Select Size-------------------------------------</option>
+                            <option value="s" style="text-align: center;" {% if product.product_size == "S" %} selected readonly {% endif %}>S</option>                           
+                            <option value="m" style="text-align: center;" {% if product.product_size == "M" %} selected readonly {% endif %}>M</option>
+                            <option value="l" style="text-align: center;" {% if product.product_size == "L" %} selected readonly {% endif %}>L</option>
+                            <option value="xl" style="text-align: center;" {% if product.product_size == "XL" %} selected readonly {% endif %}>X L</option>
+                        </select>
+                    </div>
+
+                    <div class="bor8 m-b-30 how-pos4-parent">
+                        <select name="product_brand" style="width: 35.5rem; height: 3rem;">
+                            <option style="text-align: center;" disabled>------------------------------------Select Brand-------------------------------------</option>
+                            <option value="levis" style="text-align: center;" {% if product.product_brand == "Levis" %} selected readonly{% endif %}>L e v i s</option>                           
+                            <option value="roadstar" style="text-align: center;" {% if product.product_brand == "Roadstar" %} selected readonly {% endif %}>R o a d s t a r</option>
+                            <option value="nike" style="text-align: center;" {% if product.product_brand == "Nike" %} selected readonly {% endif %}>N i k e</option>
+                        </select>
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" name="price" value="{{product.price}}">
+                        
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" style="height: 12rem; resize: none;" type="text" name="description" placeholder="Enter Description">{{product.description}}</textarea>
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="product_name" value="{{product.product_name}}">
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <img src="{{product.product_picture.url}}" alt="" style="height: 20rem; width: 20rem; margin-left: 7rem; border-radius: 50%;">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="product_picture">
+                    </div>
+
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" null="True">
+                        Edit Product
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

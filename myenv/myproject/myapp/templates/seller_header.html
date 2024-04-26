@@ -346,14 +346,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
+	</div> 
 
     {% block content %}
     {% endblock  %}
 
-
-    <!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
 			<div class="row">
@@ -420,16 +417,13 @@
 						</li>
 					</ul>
 				</div>
-
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
 						GET IN TOUCH
 					</h4>
-
 					<p class="stext-107 cl7 size-201">
 						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
 					</p>
-
 					<div class="p-t-27">
 						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-facebook"></i>
@@ -761,6 +755,40 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 <!--===============================================================================================-->
 	<script src="{% static 'js/main.js'%}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		// Function to show SweetAlert with auto-close
+		function showAlert(title, text, icon) {
+			Swal.fire({
+				title: title,
+				text: text,
+				icon: icon,
+				timer: 1800, // Auto-close after 3 seconds
+				showConfirmButton: false // Hide the "OK" button
+			});
+		}
+	
+		document.addEventListener("DOMContentLoaded", function () {
+			// Registration successful messages
+			{% if messages %}
+				{% for message in messages %}
+					showAlert("{{ message }}", "{{ message }}", "{{ message.tags }}");
+				{% endfor %}
+			{% endif %}
+	
+			// Email already exists messages
+			{% if messages %}
+				{% for message in messages %}
+					showAlert("{{ message.tags }}", "{{ message }}", "{{ message.tags }}");
+				{% endfor %}
+			{% endif %}
+	
+			// Password and confirm password cannot be same message
+			{% if pmsg %}
+				showAlert("Error!", "{{ pmsg }}", "error");
+			{% endif %}
+		});
+	</script>
 
 </body>
 </html>

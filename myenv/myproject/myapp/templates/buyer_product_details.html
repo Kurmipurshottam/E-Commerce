@@ -1,0 +1,79 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content %}
+	<!-- Product Detail -->
+	<br>
+	<br>
+	<br>
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-7 p-b-30">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="wrap-slick3-dots"></div>
+							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+							<div class="slick3 gallery-lb">
+								<div class="item-slick3" data-thumb="{{product.product_picture.url}}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="{{product.product_picture.url}}" alt="IMG-PRODUCT">										
+									</div>
+								</div>
+
+								<div class="item-slick3" data-thumb="{{product.product_picture.url}}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="{{product.product_picture.url}}" alt="IMG-PRODUCT">	
+									</div>
+								</div>
+
+								<div class="item-slick3" data-thumb="{{product.product_picture.url}}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="{{product.product_picture.url}}" alt="IMG-PRODUCT">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+							{{product.product_name}}
+						</h4>
+
+						<span class="mtext-106 cl2">
+							{{product.price}}
+						</span>
+
+						<p class="stext-102 cl3 p-t-23">
+							<h4>{{product.description}}</h4>
+						</p>
+						
+						<!--  -->
+						<div class="p-t-33">
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-203 flex-c-m respon6">
+									<h5>Size : {{product.product_size}}</h5>
+								</div>
+
+								<div class="size-204 respon6-next"></div>
+							</div>
+							<br><br>
+							<a href="{% url 'product_edit' pk=product.pk %}"><button type="button" class="btn btn-primary" style="height: 4rem; width: 12rem;"><b>Add to Cart</b></button></a>
+							<a href="{% url 'product_delete' pk=product.pk %}"><button type="button" class="btn btn-secondary" style="height: 4rem; width: 12rem;"><b>Add to Wishlist</b></button></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+	<br>
+	<br>
+	<br>
+
+
+{% endblock %}
