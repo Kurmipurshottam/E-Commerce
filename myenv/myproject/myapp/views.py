@@ -60,6 +60,12 @@ def login(request):
                     request.session['email']=user.email
                     request.session['first_name']=user.first_name  
                     request.session['picture']=user.picture.url
+                    try:
+                        request.session['wishlist']=len(wishlist)
+                        request.session['cart']=len(shoping_cart)
+                    except Exception as e:
+                        print(e)
+                    print(wishlist)
                     print("hello")
                     pmsg="Login Successfully"
                     messages.success(request,pmsg)
@@ -219,22 +225,34 @@ def reset_password(request):
     else:
         return render(request,"reset_password.html")
 
-def shop(request):
-    product=Product.objects.all()
+def shop(request,cat):
+    if cat=="all":
+        product=Product.objects.all()
+    elif cat=="women":
+        product=Product.objects.filter(product_category="Women")
+    elif cat=="men":
+        product=Product.objects.filter(product_category="Men")
+    elif cat=="child":
+        product=Product.objects.filter(product_category="Child")
     return render(request,"shop.html",{'product':product})
 
 def buyer_product_details(request,pk):
+    wishlist_flag=False
+    cart_flag=False
     product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    try:
+        Wishlist.objects.get(user=user,product=product)
+        wishlist_flag=True
+    except:
+        pass
+    try:
+        Cart.objects.get(user=user,product=product)
+        cart_flag=True
+    except:
+        pass
     print("==========================##################@@@@@@@@@@@@@@@@@@@@@@@",product)
-    return render(request,'buyer_product_details.html',{'product':product})
-
-def shoping_cart(request):
-    if not request.session['email']:
-        msg="Please login first!!!"
-        messages.info(request,msg)
-        return render(request,"shop.html")
-    else:
-        return render(request,"shoping_cart.html")
+    return render(request,'buyer_product_details.html',{'product':product,'wishlist_flag':wishlist_flag,'cart_flag':cart_flag})
 
 def home_2(request):
     return render(request,'home_2.html')
@@ -252,16 +270,105 @@ def contact(request):
     return render(request,"contact.html")
 
 def logout(request):
+    del request.session['email']
+    del request.session['first_name']
+    del request.session['picture']
     try:
-        del request.session['email']
-        del request.session['first_name']
-        del request.session['picture']
-        print("deleted")
-        msg="Logout Successfully"
-        messages.success(request, msg)
-        return redirect('login')
-    except:
-        pass
+        del request.session['wishlist']
+        del request.session['cart']
+        print("===============================",request.session['wishlist'])
+    except Exception as e:
+        print("=============================================",e)
+    print("deleted")
+    msg="Logout Successfully"
+    messages.success(request, msg)
+    return redirect('login')
+
+def add_to_wishlist(request,pk):
+    user=User.objects.get(email=request.session['email'])
+    product=Product.objects.get(pk=pk)
+    Wishlist.objects.create(user=user,product=product)
+    return redirect("wishlist")
+
+def wishlist(request):
+    user=User.objects.get(email=request.session['email'])
+    wishlist=Wishlist.objects.filter(user=user)
+    request.session['wishlist']=len(wishlist)
+    return render(request,"wishlist.html",{'wishlist':wishlist})
+
+def delete_wishlist(request,pk):
+    user=User.objects.get(email=request.session['email'])
+    product=Product.objects.get(pk=pk)
+    wishlist=Wishlist.objects.get(user=user,product=product)
+    wishlist.delete()
+    return redirect("wishlist")
+
+def add_to_cart(request,pk):
+    user=User.objects.get(email=request.session['email'])
+    product=Product.objects.get(pk=pk)
+    Cart.objects.create(user=user,
+                        product=product,
+                        cart_price=product.price,
+                        total_price=product.price,
+                        quantity=1
+                        )
+    return redirect("shoping_cart")
+
+def shoping_cart(request):
+    if not request.session['email']:
+        msg="Please login first!!!"
+        messages.info(request,msg)
+        return render(request,"shop.html")
+    else:
+        subtotal=0
+        ship=0
+        user=User.objects.get(email=request.session['email'])
+        cart=Cart.objects.filter(user=user)
+        request.session['cart']=len(cart)
+        print("======================",request.session['cart'])
+        for i in cart:
+            subtotal+=i.total_price
+        if subtotal<=20000:
+            ship=100
+            total=subtotal+ship
+        else:
+            total=subtotal  
+        return render(request,"shoping_cart.html",{'cart':cart,'subtotal':subtotal,'ship':ship,'total':total,'user':user})
+    
+def delete_cart(request,pk):
+    user=User.objects.get(email=request.session['email'])
+    product=Product.objects.get(pk=pk)
+    cart=Cart.objects.get(user=user,product=product)
+    cart.delete()
+    return redirect("shoping_cart")
+
+def change_quantity(request,pk):
+    cart=Cart.objects.get(pk=pk)
+    cart.quantity=int(request.POST['qty'])
+    cart.save()
+    cart.total_price=cart.cart_price*cart.quantity
+    cart.save()
+    return redirect("shoping_cart")
+
+def order_details(request):
+    if request.POST:
+        order_details = Order_details.objects.create(
+            first_name = request.POST['first_name'],
+            last_name = request.POST['last_name'],
+            email = request.POST['email'],
+            contact = request.POST['contact'],
+            address = request.POST['address'],
+            pincode = request.POST['pincode']  
+        )
+        order_details.save()
+        return redirect("shoping_cart")
+    else:
+        return render(request,"shoping_cart.html")
+
+def check_out(request):
+    return render(request,"check_out.html")
+
+
 # seller viwes start 
 
 def seller_index(request):

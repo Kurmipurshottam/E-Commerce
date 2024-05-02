@@ -22,7 +22,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-    path('shop/', views.shop, name='shop'),
+    path('shop/ <str:cat>/', views.shop, name='shop'),
     path('home_2/', views.home_2, name='home_2'),
     path('home_3/', views.home_3, name='home_3'),
     path('shoping_cart/', views.shoping_cart, name='shoping_cart'),
@@ -43,4 +43,13 @@ urlpatterns = [
     path('product_edit/ <int:pk>/', views.product_edit, name='product_edit'),
     path('product_delete/ <int:pk>/', views.product_delete, name='product_delete'),
     path('buyer_product_details/ <int:pk>/', views.buyer_product_details, name='buyer_product_details'),
+    path('add_to_wishlist/ <int:pk>/', views.add_to_wishlist, name='add_to_wishlist'),
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('delete_wishlist/ <int:pk>/', views.delete_wishlist, name='delete_wishlist'),
+    path('add_to_cart/ <int:pk>/', views.add_to_cart, name='add_to_cart'),
+    path('delete_cart/ <int:pk>/', views.delete_cart, name='delete_cart'),
+    path('change_quantity/ <int:pk>/', views.change_quantity, name='change_quantity'),
+    path('order_details', views.order_details, name='order_details'),
+    path('check_out/', views.check_out, name='check_out'),
+    
 ]

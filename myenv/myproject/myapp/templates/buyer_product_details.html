@@ -61,8 +61,24 @@
 								<div class="size-204 respon6-next"></div>
 							</div>
 							<br><br>
-							<a href="{% url 'product_edit' pk=product.pk %}"><button type="button" class="btn btn-primary" style="height: 4rem; width: 12rem;"><b>Add to Cart</b></button></a>
-							<a href="{% url 'product_delete' pk=product.pk %}"><button type="button" class="btn btn-secondary" style="height: 4rem; width: 12rem;"><b>Add to Wishlist</b></button></a>
+						    {% if request.session.email %}
+							{% if wishlist_flag %}
+							{% comment %} <a href="{% url 'add_to_cart' pk=product.pk %}"><button type="button" class="btn btn-primary" style="height: 4rem; width: 12rem;"><b>Add to Cart</b></button></a> {% endcomment %}
+							<a href="{% url 'delete_wishlist' pk=product.pk %}"><button type="button" class="btn btn-danger" style="height: 4rem; width: 12rem;"><b>Remove From Wishlist</b></button></a>
+							{% comment %} <a href="{% url 'delete_wishlist' pk=i.product.pk %}"><button type="button" class="btn btn-danger" style="height: 4rem; width: 13rem; margin-left: 3rem;"><b>Remove From Wishlist</b></button></a> {% endcomment %}
+							{% else %}
+							{% comment %} <a href="{% url 'add_to_cart' pk=product.pk %}"><button type="button" class="btn btn-primary" style="height: 4rem; width: 12rem;"><b>Add to Cart</b></button></a> {% endcomment %}
+							<a href="{% url 'add_to_wishlist' pk=product.pk %}"><button type="button" class="btn btn-primary" style="height: 4rem; width: 12rem;"><b>Add to Wishlist</b></button></a>
+							{% endif %}
+							{% if cart_flag %}
+								<a href="{% url 'delete_cart' pk=product.pk %}"><button type="button" class="btn btn-danger" style="height: 4rem; width: 12rem;"><b>Remove From Cart</b></button></a>
+							{% else %}
+								<a href="{% url 'add_to_cart' pk=product.pk %}"><button type="button" class="btn btn-primary" style="height: 4rem; width: 12rem;"><b>Add to Cart</b></button></a>
+							{% comment %} <a href="{% url 'delete_wishlist' pk=product.pk %}"><button type="button" class="btn btn-danger" style="height: 4rem; width: 12rem;"><b>Remove From Wishlist</b></button></a> {% endcomment %}
+							{% endif %}
+							{% else %}
+							<a class="button button-primary" href="{% url 'login' %}">Login</a>
+							{% endif %}
 						</div>
 					</div>
 				</div>

@@ -9,21 +9,21 @@
 		<div class="container">
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+					<a href="{% url 'shop' cat="all" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
 						All Products
-					</button>
+					</button></a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+					<a href="{% url 'shop' cat="women" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
 						Women
-					</button>
+					</button></a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+					<a href="{% url 'shop' cat="men" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
 						Men
-					</button>
+					</button></a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
+					<a href="{% url 'shop' cat="child" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
 						Child
-					</button>
+					</button></a>
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -247,7 +247,7 @@
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src={{i.product_picture.url}} alt="IMG-PRODUCT" style="height: 100%; width: 100%;">
+							<img src={{i.product_picture.url}} alt="IMG-PRODUCT" style="height: 400px; width: 300px;">
 
 							<a href="{% url 'buyer_product_details' pk=i.pk %}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 								Quick View
