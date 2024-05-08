@@ -60,18 +60,27 @@ class Cart(models.Model):
     quantity = models.PositiveIntegerField(default=1)  
     cart_price =  models.PositiveIntegerField()
     total_price = models.PositiveSmallIntegerField(default=0)
-    pyment_status = models.BooleanField(default=False)
+    # pyment_status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.first_name + " || " + self.product.product_name 
     
 class Order_details(models.Model):
-    first_name = models.CharField(max_length=40)
-    last_name = models.CharField(max_length=40)
-    email = models.EmailField()
-    contact = models.CharField(max_length=15)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     address = models.TextField()
     pincode = models.PositiveBigIntegerField()
 
     def __str__(self):
-        return self.first_name + " || " + self.address
+        return self.user.first_name + " || " + self.address
+    
+class Order(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    # product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    address = models.TextField()
+    pincode = models.PositiveBigIntegerField()
+    contact = models.CharField(max_length=15)
+    total_price = models.PositiveSmallIntegerField()  
+    pyment_status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.contact + " || " + self.address

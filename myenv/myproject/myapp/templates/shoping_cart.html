@@ -4,64 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Modal</title>
-    <style>
-        /* Style the modal */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+    <title>Popup Form</title>
+        <style>
+        /* Popup container */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            padding-top: 60px;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
         }
 
-        /* Modal Content/Box */
-        .modal-content {
+        /* Popup content */
+        .popup-content {
             background-color: #fefefe;
-            margin: 10% auto; /* 10% from the top and centered */
-            border: 1px solid #888;
-            width: 70%; /* Could be more or less, depending on screen size */
-            position: relative;
+            margin: auto;
             padding: 20px;
-            border-radius: 5px;
-        }
-
-        /* Close Button */
-        .close {
-            color: #aaa;
+            border: 1px solid #888;
+            width: 50%; /* Adjust the width as needed */
             position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Textarea */
-        textarea {
-            width: calc(100% - 20px);
-            height: 100px;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
-
 <br>
 <br>
 <br>
@@ -83,6 +54,48 @@
 	<br>
 	<br>
 	<br>
+	<!--popup manu model-->
+	<div id="myForm" class="popup">
+    <div class="popup-content">
+        <span onclick="closeForm()" style="float:right; cursor:pointer;">&times;</span>
+        <div class="container">
+            <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
+                <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+                    <form id="orderForm" method="POST" action="{% url 'order_details' %}">
+                        {% csrf_token %}
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name" placeholder="Enter First Name" value="{{user.first_name}}">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name" placeholder="Enter Last Name" value="{{user.last_name}}">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder=" Enter Email" value="{{user.email}}">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact" placeholder="Enter Contact Number" value="{{user.contact}}">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="address" placeholder="Enter Your Address"></textarea>
+                        </div>
+
+                        <div class="bor8 m-b-30 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="pincode" placeholder="Enter Pin Code">
+                        </div>
+                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" onclick="submitForm()">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<!--popup manu model end-->
 	<!-- Shoping Cart -->
 	<div class="container">
 		<div class="row">
@@ -120,8 +133,7 @@
 										</div>
 									</td>
 									<td class="column-5">{{i.total_price}}</td>
-									<td class="column-6"><a href="{% url 'delete_cart' pk=i.product.pk %}" ><i class="zmdi zmdi-delete" style="text-decoration: none; color: black;"></i></a></td>
-										
+									<td class="column-6"><a href="{% url 'delete_cart' pk=i.product.pk %}" ><i class="zmdi zmdi-delete" style="text-decoration: none; color: black;"></i></a></td>					
 								</tr>
 								{% endfor %}
 							</table>
@@ -185,9 +197,21 @@
 								</div>
 							</div>
 							
-							<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="document.getElementById('myModal').style.display='block'">
-								Proceed to Checkout
-							</button>
+							{% comment %} {% if not order_details %}
+								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+									Proceed to Checkout
+								</button>
+							{% endif %}  {% endcomment %}
+							{% if order_status %}
+								{% comment %} <a href="{% url 'address' %}"><button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+									Proceed to Checkout
+								</button></a> {% endcomment %}
+								<a href="{% url 'check_out' %}"><button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+									Buy Now
+								</button></a>  
+							{% else %}
+								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="openForm()">Buy Now</button>
+							{% endif %}
 							{% comment %} <button onclick="document.getElementById('myModal').style.display='block'">Open Login Modal</button> {% endcomment %}
 
 						{% else %}
@@ -202,65 +226,20 @@
 				</div>
 			</div>
 		</div>
-		<!-- The Modal -->
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-        <section class="bg0 p-t-104 p-b-116">
-            <div class="container">
-                <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
-                    <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                        <form method="POST" action="{% url 'order_details' %}">
-                            {% csrf_token %}
-                            <h4 class="mtext-105 cl2 txt-center p-b-30">
-                                Order Details
-                            </h4>
-							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name" placeholder="Enter First Name" value="{{user.first_name}}">
-							</div>
-
-							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name" placeholder="Enter Last Name" value="{{user.last_name}}">
-							</div>
-
-							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder=" Enter Email" value="{{user.email}}">						
-							</div>
-
-							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact" placeholder="Enter Contact Number" value="{{user.contact}}">
-							</div>
-
-							<div class="bor8 m-b-20 how-pos4-parent">
-                                <textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="address" placeholder="Enter Your Address"></textarea>
-                            </div>
-
-							<div class="bor8 m-b-30 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="pincode" name="pincode" placeholder="Enter Pin Code">
-							</div>
-                            <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" onchange="this.form.submit()">
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-</div>
 <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
+    // Function to open the form
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
+    // Function to close the form
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+
+    // Function to submit the form
+    function submitForm() {
+        document.getElementById("orderForm").submit();
     }
 </script>
 		<br>

@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import JsonResponse
 from .models import *
 from django.contrib import messages
 import random
@@ -273,6 +274,7 @@ def logout(request):
     del request.session['email']
     del request.session['first_name']
     del request.session['picture']
+    del request.session['total']
     try:
         del request.session['wishlist']
         del request.session['cart']
@@ -319,21 +321,26 @@ def shoping_cart(request):
         msg="Please login first!!!"
         messages.info(request,msg)
         return render(request,"shop.html")
+        
     else:
+        order_status=False
         subtotal=0
         ship=0
         user=User.objects.get(email=request.session['email'])
+        if Order_details.objects.filter(user=user) :
+            order_status = True 
         cart=Cart.objects.filter(user=user)
         request.session['cart']=len(cart)
-        print("======================",request.session['cart'])
+        # print("======================",request.session['cart'])
         for i in cart:
             subtotal+=i.total_price
         if subtotal<=20000:
             ship=100
             total=subtotal+ship
         else:
-            total=subtotal  
-        return render(request,"shoping_cart.html",{'cart':cart,'subtotal':subtotal,'ship':ship,'total':total,'user':user})
+            total=subtotal
+        request.session['total'] = total
+        return render(request,"shoping_cart.html",{'cart':cart,'subtotal':subtotal,'ship':ship,'user':user,'total':total,'order_status':order_status})
     
 def delete_cart(request,pk):
     user=User.objects.get(email=request.session['email'])
@@ -345,31 +352,67 @@ def delete_cart(request,pk):
 def change_quantity(request,pk):
     cart=Cart.objects.get(pk=pk)
     cart.quantity=int(request.POST['qty'])
+    request.session['cart_quantity'] = cart.quantity
+    print("Cart Quantity in session:", request.session.get('cart_quantity'))
     cart.save()
     cart.total_price=cart.cart_price*cart.quantity
+    
     cart.save()
-    return redirect("shoping_cart")
+    return redirect("shoping_cart") 
 
 def order_details(request):
+    user=User.objects.get(email=request.session['email'])
     if request.POST:
         order_details = Order_details.objects.create(
-            first_name = request.POST['first_name'],
-            last_name = request.POST['last_name'],
-            email = request.POST['email'],
-            contact = request.POST['contact'],
+            user=user,
             address = request.POST['address'],
             pincode = request.POST['pincode']  
         )
         order_details.save()
-        return redirect("shoping_cart")
+        return redirect("check_out")
+        
     else:
-        return render(request,"shoping_cart.html")
+        return render(request,"check_out.html")
 
 def check_out(request):
-    return render(request,"check_out.html")
+    user=User.objects.get(email=request.session['email'])
+    order=Order_details.objects.filter(user=user)
+    cart=Cart.objects.filter(user=user)
+    # cart=Cart.objects.get(user=user)
+    # print("============<<<<<<<<",cart.quantity)
+    total=request.session['total']
+    print("================",total)
+    # print("=========>>>>>>>>>>>>..",cart.total_price)
+    order_details=Order_details.objects.filter(user=user).latest('address')
+    return render(request,"check_out.html",{'user':user,'order_details':order_details,'order':order})
 
+def order(request):
+    user=User.objects.get(email=request.session['email'])
+    if request.session['email']:
+        if request.POST:
+            print("raj")
+            order = Order.objects.create(
+            user=user,
+            address = request.POST['address'],
+            pincode = request.POST['pincode'] , 
+            contact = request.POST['contact'],
+            total_price = request.POST['total_price']  
+        )
+        order.save()
+    pass
 
-# seller viwes start 
+# def delete_address(request):
+#     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+#         address_id = request.POST.get('id')
+#         try:
+#             order_details = Order_details.objects.get(id=address_id)
+#             order_details.delete()
+#             return JsonResponse({'message': 'Address deleted successfully'}, status=200)
+#         except Order_details.DoesNotExist:
+#             return JsonResponse({'error': 'Address not found'}, status=404)
+#     else:
+#         return JsonResponse({'error': 'Invalid request'}, status=400)
+# # seller viwes start 
 
 def seller_index(request):
     return render(request,"seller_index.html")
