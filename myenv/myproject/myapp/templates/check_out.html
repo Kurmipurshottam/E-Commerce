@@ -72,126 +72,7 @@
 	}
 	</style>
 </head>
-
-<!--popup manu model-->
-<div id="myForm" class="popup">
-	<div class="popup-content">
-		<span onclick="closeForm()" style="float:right; cursor:pointer;">&times;</span>
-		<div class="container">
-			<div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
-				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-					<form id="orderForm" method="POST" action="{% url 'order_details' %}">
-						{% csrf_token %}
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name"
-								placeholder="Enter First Name" value="{{user.first_name}}">
-						</div>
-
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name"
-								placeholder="Enter Last Name" value="{{user.last_name}}">
-						</div>
-
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email"
-								placeholder=" Enter Email" value="{{user.email}}">
-						</div>
-
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact"
-								placeholder="Enter Contact Number" value="{{user.contact}}">
-						</div>
-
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="address"
-								placeholder="Enter Your Address"></textarea>
-						</div>
-
-						<div class="bor8 m-b-30 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="pincode"
-								placeholder="Enter Pin Code">
-						</div>
-						<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer"
-							type="button" onclick="submitForm()">
-							Submit
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-    <!-- The Pop-up Model -->
-    <div id="popupModel" class="popupModel">
-        <div class="popupContent">
-            <span class="close" onclick="closePopup()">&times;</span>
-			<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-				<h4 class="mtext-109 cl2 p-b-30">
-					Delivery Address
-				</h4>
-			    <form action="{% url 'order' %}" method="post">
-					{% csrf_token %}
-					<div class="flex-w flex-t p-t-27 p-b-33">
-						<div class="size-208">
-							<span class="mtext-101 cl2">
-								Address
-							</span>
-						</div>
-
-						<div class="size-209 p-t-1">
-							<span class="mtext-110 cl2" id="selectedAddress1">
-								<input type="text" name="address" value="{{ order_details.address }}" readonly>
-							</span>
-						</div>
-					</div>
-
-					<div class="flex-w flex-t p-t-27 p-b-33">
-						<div class="size-208">
-							<span class="mtext-101 cl2">
-								Pin Code
-							</span>
-						</div>
-
-						<div class="size-209 p-t-1">
-							<span class="mtext-110 cl2" id="selectedPincode1">
-								<input type="text" name="pincode" value="{{ order_details.pincode }}" readonly>
-							</span>
-						</div>
-					</div>
-
-					<div class="flex-w flex-t p-t-27 p-b-33">
-						<div class="size-208">
-							<span class="mtext-101 cl2">
-								Contact No
-							</span>
-						</div>
-
-						<div class="size-209 p-t-1">
-							<input type="text" class="mtext-110 cl2" name="contact" value="{{ user.contact }}" readonly>
-						</div>
-					</div>
-
-					<div class="flex-w flex-t p-t-27 p-b-33">
-						<div class="size-208">
-							<span class="mtext-101 cl2">
-								Total Price
-							</span>
-						</div>
-
-						<div class="size-209 p-t-1">
-							<input type="text" class="mtext-110 cl2" name="total_price" value="{{ request.session.total }}" readonly>
-						</div>
-					</div>
-					<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="openPopup()">
-						Pay Now
-					</button>
-				</form>
-			</div>
-            <!-- Add your form elements for new delivery address here -->
-        </div>
-    </div>
-</div>
+ 
 <!-- end -->
 <br>
 <br>
@@ -208,97 +89,78 @@
 	</div>
 </div>
 <br>
-<br>
-<br>
 <!-- Shoping Cart -->
 <div class="container">
-	<div class="row">
-		<div class="col-lg-5 col-xl-7 m-lr-auto m-b-12" style="margin-left: 0rem;">
-			<div class="m-l-25 m-r--19 m-lr-0-xl table-container">
-				<div class="wrap-table-shopping-cart">
-					<table class="table-shopping-cart">
-						<tr class="table_head">
-							<th class="column-1">Address</th>
-							<th class="column-2">Pincode</th>
-							<th class="column-3"></th>
-						</tr>
-						{% for i in order %}
-						<tr class="table_row">
-							<td class="column-1"><textarea name="address" style="height: 6rem; width: 12rem;" readonly>{{i.address}}</textarea></td>
-							<td class="column-2"><input type="text" name="pincode" style="height: 3rem;" value="{{i.pincode}}" readonly></td>
-							<td class="column-3">
-								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" style="margin-left: -5rem;" onclick="selectAddress('{{ i.id }}', '{{ i.address }}', '{{ i.pincode }}')">select</button>
-							</td>
-							<td class="column-3" style="margin-left: 10px;">
-								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" style="margin-left: -2rem;">delete</button>
-							</td>
-						</tr>
-						{% endfor %}
-					</table>
-				</div>
-			</div>
-		</div>
+            <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
+                <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+                    <form id="orderForm" method="POST" action="{% url 'order_details' %}">
+                        {% csrf_token %}
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name" placeholder="Enter First Name" value="{{user.first_name}}">
+                        </div>
 
-		<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-			<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-				<h4 class="mtext-109 cl2 p-b-30">
-					Delivery Address
-				</h4>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name" placeholder="Enter Last Name" value="{{user.last_name}}">
+                        </div>
 
-				<div class="flex-w flex-t p-t-27 p-b-33">
-					<div class="size-208">
-						<span class="mtext-101 cl2">
-							Address
-						</span>
-					</div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder=" Enter Email" value="{{user.email}}">
+                        </div>
 
-					<div class="size-209 p-t-1">
-						<span class="mtext-110 cl2" id="selectedAddress">
-							{{ order_details.address }}
-						</span>
-					</div>
-				</div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact" placeholder="Enter Contact Number" value="{{user.contact}}">
+                        </div>
 
-				<div class="flex-w flex-t p-t-27 p-b-33">
-					<div class="size-208">
-						<span class="mtext-101 cl2">
-							Pin Code
-						</span>
-					</div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="address" placeholder="Enter Your Address"></textarea>
+                        </div>
 
-					<div class="size-209 p-t-1">
-						<span class="mtext-110 cl2" id="selectedPincode">
-							{{ order_details.pincode }}
-						</span>
-					</div>
-				</div>
-
-				<div class="flex-w flex-t p-t-27 p-b-33">
-					<div class="size-208">
-						<span class="mtext-101 cl2">
-							Contact No
-						</span>
-					</div>
-
-					<div class="size-209 p-t-1">
-						<span class="mtext-110 cl2">
-							{{ user.contact }}
-						</span>
-					</div>
-				</div>
-				<p style="text-align: center; cursor: pointer;" onclick="openForm()">
-					Deliver to Another Address
-				</p>
-				<br>
-				<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="openPopup()">
-					Proceed to Checkout
-				</button>
-			</div>
-
-		</div>
-	</div>
+                        <div class="bor8 m-b-30 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="pincode" placeholder="Enter Pin Code">
+                        </div>
+                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" id="rzp-button1">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
 </div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+
+	//razorpay script
+                        var options = {
+                            "key": "rzp_test_3iCOPLbchUyIwQ", // Enter the Key ID generated from the Dashboard
+                            "amount": "{{context.payment.amount}}",// Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                            "currency": "INR",
+                            "name": "COZA STORE",
+                            "description": "Test Payment",
+                            "image": "{% static 'myapp/images/hm.png' %}",
+                            "handler": function (response){
+                
+                                window.location.href=`http://localhost:8000/success?razorpay_payment_id=${response.razorpay_payment_id}`
+                
+                                
+                            },
+                            "theme": {
+                                "color": "#94CA21"
+                            }
+                        };
+                        var rzp1 = new Razorpay(options);
+                        rzp1.on('payment.failed', function (response){
+                                alert(response.error.code);
+                                alert(response.error.description);
+                                alert(response.error.source);
+                                alert(response.error.step);
+                                alert(response.error.reason);
+                                alert(response.error.metadata.order_id);
+                                alert(response.error.metadata.payment_id);
+                        });
+                        document.getElementById('rzp-button1').onclick = function(e){
+                            rzp1.open();
+                            e.preventDefault();
+                        }
+	//razorpay script end
 	// Function to open the form
 	function openForm() {
 		document.getElementById("myForm").style.display = "block";

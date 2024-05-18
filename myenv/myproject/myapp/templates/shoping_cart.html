@@ -4,34 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popup Form</title>
-        <style>
-        /* Popup container */
-        .popup {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        /* Popup content */
-        .popup-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%; /* Adjust the width as needed */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-    </style>
 </head>
 <br>
 <br>
@@ -56,51 +28,13 @@
 	<br>
 	<!--popup manu model-->
 	<div id="myForm" class="popup">
-    <div class="popup-content">
-        <span onclick="closeForm()" style="float:right; cursor:pointer;">&times;</span>
-        <div class="container">
-            <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
-                <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    <form id="orderForm" method="POST" action="{% url 'order_details' %}">
-                        {% csrf_token %}
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name" placeholder="Enter First Name" value="{{user.first_name}}">
-                        </div>
-
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name" placeholder="Enter Last Name" value="{{user.last_name}}">
-                        </div>
-
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder=" Enter Email" value="{{user.email}}">
-                        </div>
-
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact" placeholder="Enter Contact Number" value="{{user.contact}}">
-                        </div>
-
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="address" placeholder="Enter Your Address"></textarea>
-                        </div>
-
-                        <div class="bor8 m-b-30 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="pincode" placeholder="Enter Pin Code">
-                        </div>
-                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" onclick="submitForm()">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 	<!--popup manu model end-->
 	<!-- Shoping Cart -->
 	<div class="container">
 		<div class="row">
 			{% if cart %}
-			<div class="col-lg-10 col-xl-8 m-lr-auto m-b-50" style="margin-left: -10rem;">
+			<div class="col-lg-10 col-xl-9 m-lr-auto m-b-50" style="margin-left: -13rem;">
 				          
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
@@ -112,6 +46,7 @@
 									<th class="column-4">Quantity</th>
 									<th class="column-5">Total</th>
 									<th class="column-6"></th>
+									<th class="column-7"></th>
 										
 								</tr>
 								{% for i in cart %}
@@ -133,7 +68,7 @@
 										</div>
 									</td>
 									<td class="column-5">{{i.total_price}}</td>
-									<td class="column-6"><a href="{% url 'delete_cart' pk=i.product.pk %}" ><i class="zmdi zmdi-delete" style="text-decoration: none; color: black;"></i></a></td>					
+									<td class="column-7"><a href="{% url 'delete_cart' pk=i.product.pk %}" ><i class="zmdi zmdi-delete" style="text-decoration: none; color: black;"></i></a></td>					
 								</tr>
 								{% endfor %}
 							</table>
@@ -141,7 +76,7 @@
 					</div>
 				</div>
 
-					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50" style="margin-left: -1rem;">
 						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
 							<h4 class="mtext-109 cl2 p-b-30">
 								Cart Totals
@@ -196,22 +131,9 @@
 									</span>
 								</div>
 							</div>
-							
-							{% comment %} {% if not order_details %}
-								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-									Proceed to Checkout
-								</button>
-							{% endif %}  {% endcomment %}
-							{% if order_status %}
-								{% comment %} <a href="{% url 'address' %}"><button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-									Proceed to Checkout
-								</button></a> {% endcomment %}
 								<a href="{% url 'check_out' %}"><button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 									Buy Now
 								</button></a>  
-							{% else %}
-								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="openForm()">Buy Now</button>
-							{% endif %}
 							{% comment %} <button onclick="document.getElementById('myModal').style.display='block'">Open Login Modal</button> {% endcomment %}
 
 						{% else %}

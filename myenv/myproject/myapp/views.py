@@ -1,9 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.http import HttpResponse
 from .models import *
 from django.contrib import messages
 import random
 import requests
+from django.conf import settings
+import razorpay
 
 # Create your views here.
 def index(request):
@@ -274,8 +278,8 @@ def logout(request):
     del request.session['email']
     del request.session['first_name']
     del request.session['picture']
-    del request.session['total']
     try:
+        del request.session['total']
         del request.session['wishlist']
         del request.session['cart']
         print("===============================",request.session['wishlist'])
@@ -323,12 +327,9 @@ def shoping_cart(request):
         return render(request,"shop.html")
         
     else:
-        order_status=False
         subtotal=0
         ship=0
-        user=User.objects.get(email=request.session['email'])
-        if Order_details.objects.filter(user=user) :
-            order_status = True 
+        user=User.objects.get(email=request.session['email']) 
         cart=Cart.objects.filter(user=user)
         request.session['cart']=len(cart)
         # print("======================",request.session['cart'])
@@ -340,7 +341,7 @@ def shoping_cart(request):
         else:
             total=subtotal
         request.session['total'] = total
-        return render(request,"shoping_cart.html",{'cart':cart,'subtotal':subtotal,'ship':ship,'user':user,'total':total,'order_status':order_status})
+        return render(request,"shoping_cart.html",{'cart':cart,'subtotal':subtotal,'ship':ship,'user':user,'total':total})
     
 def delete_cart(request,pk):
     user=User.objects.get(email=request.session['email'])
@@ -363,13 +364,16 @@ def change_quantity(request,pk):
 def order_details(request):
     user=User.objects.get(email=request.session['email'])
     if request.POST:
-        order_details = Order_details.objects.create(
-            user=user,
-            address = request.POST['address'],
-            pincode = request.POST['pincode']  
-        )
-        order_details.save()
-        return redirect("check_out")
+        try:
+            order_details = Order_details.objects.create(
+                user=user,
+                address = request.POST['address'],
+                pincode = request.POST['pincode']  
+            )
+            order_details.save()
+            return redirect("check_out")
+        except:
+            return redirect("check_out")
         
     else:
         return render(request,"check_out.html")
@@ -378,29 +382,45 @@ def check_out(request):
     user=User.objects.get(email=request.session['email'])
     order=Order_details.objects.filter(user=user)
     cart=Cart.objects.filter(user=user)
-    # cart=Cart.objects.get(user=user)
-    # print("============<<<<<<<<",cart.quantity)
     total=request.session['total']
     print("================",total)
-    # print("=========>>>>>>>>>>>>..",cart.total_price)
-    order_details=Order_details.objects.filter(user=user).latest('address')
-    return render(request,"check_out.html",{'user':user,'order_details':order_details,'order':order})
 
-def order(request):
-    user=User.objects.get(email=request.session['email'])
-    if request.session['email']:
-        if request.POST:
-            print("raj")
-            order = Order.objects.create(
-            user=user,
-            address = request.POST['address'],
-            pincode = request.POST['pincode'] , 
-            contact = request.POST['contact'],
-            total_price = request.POST['total_price']  
-        )
-        order.save()
-    pass
+    client = razorpay.Client(auth = (settings.RAZORPAY_KEY_ID,settings.RAZORPAY_KEY_SECRET))
+    payment = client.order.create({'amount': total * 100, 'currency': 'INR', 'payment_capture': 1})
+    context = {
+        'payment': payment,
+        }
+    print("=======================",context)
+    print("&7777777777777777777777",payment)
+    
+    return render(request,"check_out.html",{'user':user,'order':order,'context':context})
 
+def success(request):
+    try:
+        user=User.objects.get(email=request.session['email'])
+        cart=Cart.objects.filter(user=user,pyment_status=False)
+
+        for i in cart:
+            i.pyment_status=True
+            i.save()
+        return render(request,"success.html",{'cart':cart})
+    except:
+        return redirect("index")
+
+# def order(request):
+#     user=User.objects.get(email=request.session['email'])
+#     if request.session['email']:
+#         if request.POST:
+#             order = Order.objects.create(
+#                     user=user,
+#                     address = request.POST.get('address'),
+#                     pincode = request.POST.get('pincode'),
+#                     contact = request.POST.get('contact'),
+#                     total_price = request.POST.get('total_price')
+#                 )
+#             order.save()
+#             return redirect('check_out')
+        
 # def delete_address(request):
 #     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
 #         address_id = request.POST.get('id')
