@@ -52,8 +52,6 @@ urlpatterns = [
     path('order_details', views.order_details, name='order_details'),
     path('check_out/', views.check_out, name='check_out'),
     path('success/', views.success, name='success'),
-    # path('order/', views.order, name='order'),
-    # path('delete_address/', views.delete_address, name='delete_address'),
     
     
 ]

@@ -8,8 +8,10 @@ import random
 import requests
 from django.conf import settings
 import razorpay
+from django.views.decorators.cache import never_cache
 
 # Create your views here.
+@never_cache
 def index(request):
     try:
         user = User.objects.get(email = request.session['email'])
@@ -20,6 +22,7 @@ def index(request):
     except:
         return render(request,"index.html")
 
+@never_cache
 def signup(request):
     if request.POST:
         print(">>>>>>>>>>>page lode")
@@ -54,7 +57,8 @@ def signup(request):
                 return render(request,'signup.html')
     else:
         return render(request,'signup.html')
-    
+
+@never_cache    
 def login(request):
     if request.POST:
         try:
@@ -97,7 +101,8 @@ def login(request):
             return render(request,"login.html")
     else:
         return render(request,"login.html")
-    
+
+@never_cache   
 def change_password(request):
     user=User.objects.get(email=request.session['email'])
     if request.POST:
@@ -136,6 +141,7 @@ def change_password(request):
             return render(request,'seller_change_password.html')
     # return render(request,"change_password.html")
 
+@never_cache
 def profile(request):
     print("=============page load=================")
     user = User.objects.get(email = request.session['email'])
@@ -159,9 +165,11 @@ def profile(request):
         else:
             return render(request,"seller_profile.html",{'user':user})
 
+@never_cache
 def forget_password(request):
     return render(request,"forgetpassword.html")
 
+@never_cache
 def forgetpassword_phone(request):
     if request.POST:
         try:
@@ -193,7 +201,8 @@ def forgetpassword_phone(request):
             return render(request,"forgetpassword_phone.html")
     else:
         return render(request,"forgetpassword_phone.html")
-    
+
+@never_cache   
 def otp(request):
     if request.POST:
         otp=int(request.session['otp'])
@@ -211,6 +220,7 @@ def otp(request):
     else:
         return render(request,"otp.html")
 
+@never_cache
 def reset_password(request):   
     user=User.objects.get(contact=request.session['mobile']) 
     if request.POST:
@@ -230,6 +240,7 @@ def reset_password(request):
     else:
         return render(request,"reset_password.html")
 
+@never_cache
 def shop(request,cat):
     if cat=="all":
         product=Product.objects.all()
@@ -241,6 +252,7 @@ def shop(request,cat):
         product=Product.objects.filter(product_category="Child")
     return render(request,"shop.html",{'product':product})
 
+@never_cache
 def buyer_product_details(request,pk):
     wishlist_flag=False
     cart_flag=False
@@ -259,21 +271,27 @@ def buyer_product_details(request,pk):
     print("==========================##################@@@@@@@@@@@@@@@@@@@@@@@",product)
     return render(request,'buyer_product_details.html',{'product':product,'wishlist_flag':wishlist_flag,'cart_flag':cart_flag})
 
+@never_cache
 def home_2(request):
     return render(request,'home_2.html')
 
+@never_cache
 def home_3(request):
     return render(request,'home_3.html')
 
+@never_cache
 def blog(request):
     return render(request,"blog.html")
 
+@never_cache
 def about(request):
     return render(request,"about.html")
 
+@never_cache
 def contact(request):
     return render(request,"contact.html")
 
+@never_cache
 def logout(request):
     del request.session['email']
     del request.session['first_name']
@@ -290,18 +308,21 @@ def logout(request):
     messages.success(request, msg)
     return redirect('login')
 
+@never_cache
 def add_to_wishlist(request,pk):
     user=User.objects.get(email=request.session['email'])
     product=Product.objects.get(pk=pk)
     Wishlist.objects.create(user=user,product=product)
     return redirect("wishlist")
 
+@never_cache
 def wishlist(request):
     user=User.objects.get(email=request.session['email'])
     wishlist=Wishlist.objects.filter(user=user)
     request.session['wishlist']=len(wishlist)
     return render(request,"wishlist.html",{'wishlist':wishlist})
 
+@never_cache
 def delete_wishlist(request,pk):
     user=User.objects.get(email=request.session['email'])
     product=Product.objects.get(pk=pk)
@@ -309,6 +330,7 @@ def delete_wishlist(request,pk):
     wishlist.delete()
     return redirect("wishlist")
 
+@never_cache
 def add_to_cart(request,pk):
     user=User.objects.get(email=request.session['email'])
     product=Product.objects.get(pk=pk)
@@ -320,6 +342,7 @@ def add_to_cart(request,pk):
                         )
     return redirect("shoping_cart")
 
+@never_cache
 def shoping_cart(request):
     if not request.session['email']:
         msg="Please login first!!!"
@@ -342,7 +365,8 @@ def shoping_cart(request):
             total=subtotal
         request.session['total'] = total
         return render(request,"shoping_cart.html",{'cart':cart,'subtotal':subtotal,'ship':ship,'user':user,'total':total})
-    
+
+@never_cache    
 def delete_cart(request,pk):
     user=User.objects.get(email=request.session['email'])
     product=Product.objects.get(pk=pk)
@@ -350,6 +374,7 @@ def delete_cart(request,pk):
     cart.delete()
     return redirect("shoping_cart")
 
+@never_cache
 def change_quantity(request,pk):
     cart=Cart.objects.get(pk=pk)
     cart.quantity=int(request.POST['qty'])
@@ -361,6 +386,7 @@ def change_quantity(request,pk):
     cart.save()
     return redirect("shoping_cart") 
 
+@never_cache
 def order_details(request):
     user=User.objects.get(email=request.session['email'])
     if request.POST:
@@ -378,6 +404,7 @@ def order_details(request):
     else:
         return render(request,"check_out.html")
 
+@never_cache
 def check_out(request):
     user=User.objects.get(email=request.session['email'])
     order=Order_details.objects.filter(user=user)
@@ -395,6 +422,7 @@ def check_out(request):
     
     return render(request,"check_out.html",{'user':user,'order':order,'context':context})
 
+@never_cache
 def success(request):
     try:
         user=User.objects.get(email=request.session['email'])
@@ -434,9 +462,11 @@ def success(request):
 #         return JsonResponse({'error': 'Invalid request'}, status=400)
 # # seller viwes start 
 
+@never_cache
 def seller_index(request):
     return render(request,"seller_index.html")
 
+@never_cache
 def add_product(request):
     seller = User.objects.get(email=request.session['email'])
     if request.POST:
@@ -456,15 +486,18 @@ def add_product(request):
     else:
         return render(request,"add_product.html")
 
+@never_cache
 def view_product(request):
     seller = User.objects.get(email=request.session['email'])
     product = Product.objects.filter(seller=seller)
     return render(request,"view_product.html",{'product':product})
 
+@never_cache
 def product_details(request,pk):
     product=Product.objects.get(pk=pk)
     return render(request,"product_details.html",{'product':product})
 
+@never_cache
 def product_edit(request,pk):
     product=Product.objects.get(pk=pk)
     if request.POST:
@@ -485,6 +518,7 @@ def product_edit(request,pk):
     else:
         return render(request,"product_edit.html",{'product':product})
 
+@never_cache
 def product_delete(request,pk):
     product=Product.objects.get(pk=pk)
     product.delete()
