@@ -76,7 +76,6 @@
                             "currency": "INR",
                             "name": "COZA STORE",
                             "description": "Test Payment",
-                            "image": "{% static 'myapp/images/hm.png' %}",
                             "handler": function (response){
                 
                                 window.location.href=`http://localhost:8000/success?razorpay_payment_id=${response.razorpay_payment_id}`
