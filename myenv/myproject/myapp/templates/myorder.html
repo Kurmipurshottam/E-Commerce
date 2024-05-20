@@ -1,0 +1,64 @@
+{% extends 'header.html' %}
+{% block content %}
+{% load static %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+	<!-- Shoping Cart -->
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-lg-10 col-xl-9 m-lr-auto m-b-50" style="margin-left: 8rem;">
+				          
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1">Product</th>
+									<th class="column-2">Product Name</th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Quantity</th>
+									<th class="column-5">Total</th>
+									<th class="column-6"></th>
+									<th class="column-7"></th>
+										
+								</tr>
+								{% for i in cart %}
+								<tr class="table_row">
+									<td class="column-1">
+										<div class="how-itemcart1">
+											<img src="{{i.product.product_picture.url}}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2">{{i.product.product_name}}</td>
+									<td class="column-3">{{i.product.price}}</td>
+									<td class="column-4">{{i.quantity}}</td>
+									<td class="column-5">{{i.total_price}}</td>
+                                </tr>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+				</div>
+
+				</div>
+			</div>
+		</div>
+
+		
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div> 
+
+
+</body>
+</html>
+{% endblock %}

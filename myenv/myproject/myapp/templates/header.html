@@ -89,7 +89,8 @@
 							<ul class="main-menu">
 								<li>
 									<button style="font-size: 1.2rem;"><i class="zmdi zmdi-assignment-account" style="color: black;">  My Account</i></button>
-									<ul class="sub-menu" style="width: 100rem;">
+									<ul class="sub-menu" style="width: 140rem;">
+										<li><a href="{% url 'myorder' %}"><i class="zmdi zmdi-edit" style="color: black;"></i>&nbsp;&nbsp;My Order</a></li><hr>
 										<a href="{% url 'profile' %}"><li><i class="zmdi zmdi-edit" style="color: black;"></i>&nbsp;&nbsp;Edit Profile</li></a><hr>
 										<a href="{% url 'change_password' %}"><li><i class="zmdi zmdi-key" style="color: black;"></i>&nbsp;&nbsp;Change Password</li></a><hr>
 										<a href="{% url 'logout' %}"><li><i class="zmdi zmdi-arrow-left" style="color: black;"></i>&nbsp;&nbsp;Logout</li></a>
@@ -211,6 +212,7 @@
 					<li>
 						<a><i class="zmdi zmdi-assignment-account" style="color: white;">  My Account</i></a>
 						<ul class="sub-menu-m">
+							<li><a href="{% url 'myorder' %}"><i class="zmdi zmdi-edit" style="color: black;"></i>&nbsp;&nbsp;My Order</a></li>
 							<li><a href="{% url 'profile' %}"><i class="zmdi zmdi-edit" style="color: black;"></i>&nbsp;&nbsp;Edit Profile</a></li>
 							<li><a href="{% url 'change_password' %}"><i class="zmdi zmdi-key" style="color: black;"></i>&nbsp;&nbsp;Change Password</a></li>
 							<li><a href="{% url 'logout' %}"><i class="zmdi zmdi-arrow-left" style="color: black;"></i>&nbsp;&nbsp;Logout</a></li>

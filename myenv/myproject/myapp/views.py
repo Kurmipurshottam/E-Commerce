@@ -353,7 +353,7 @@ def shoping_cart(request):
         subtotal=0
         ship=0
         user=User.objects.get(email=request.session['email']) 
-        cart=Cart.objects.filter(user=user)
+        cart=Cart.objects.filter(user=user,pyment_status=False)
         request.session['cart']=len(cart)
         # print("======================",request.session['cart'])
         for i in cart:
@@ -386,6 +386,15 @@ def change_quantity(request,pk):
     cart.save()
     return redirect("shoping_cart") 
 
+def payment(request):
+    return render(request,"payment.html")
+
+@never_cache
+def check_out(request):
+    user=User.objects.get(email=request.session['email'])
+    return render(request,"check_out.html",{'user':user})
+
+
 @never_cache
 def order_details(request):
     user=User.objects.get(email=request.session['email'])
@@ -397,30 +406,25 @@ def order_details(request):
                 pincode = request.POST['pincode']  
             )
             order_details.save()
-            return redirect("check_out")
+            order=Order_details.objects.filter(user=user)
+            cart=Cart.objects.filter(user=user)
+            total=request.session['total']
+            print("================",total)
+
+            client = razorpay.Client(auth = (settings.RAZORPAY_KEY_ID,settings.RAZORPAY_KEY_SECRET))
+            payment = client.order.create({'amount': total * 100, 'currency': 'INR', 'payment_capture': 1})
+            context = {
+                'payment': payment,
+                }
+            print("=======================",context)
+            print("&7777777777777777777777",payment)
+            
+            return render(request,"payment.html",{'user':user,'order':order,'context':context,'total':total})
         except:
-            return redirect("check_out")
+            return redirect("payment")
         
     else:
-        return render(request,"check_out.html")
-
-@never_cache
-def check_out(request):
-    user=User.objects.get(email=request.session['email'])
-    order=Order_details.objects.filter(user=user)
-    cart=Cart.objects.filter(user=user)
-    total=request.session['total']
-    print("================",total)
-
-    client = razorpay.Client(auth = (settings.RAZORPAY_KEY_ID,settings.RAZORPAY_KEY_SECRET))
-    payment = client.order.create({'amount': total * 100, 'currency': 'INR', 'payment_capture': 1})
-    context = {
-        'payment': payment,
-        }
-    print("=======================",context)
-    print("&7777777777777777777777",payment)
-    
-    return render(request,"check_out.html",{'user':user,'order':order,'context':context})
+        return render(request,"payment.html")
 
 @never_cache
 def success(request):
@@ -435,31 +439,15 @@ def success(request):
     except:
         return redirect("index")
 
-# def order(request):
-#     user=User.objects.get(email=request.session['email'])
-#     if request.session['email']:
-#         if request.POST:
-#             order = Order.objects.create(
-#                     user=user,
-#                     address = request.POST.get('address'),
-#                     pincode = request.POST.get('pincode'),
-#                     contact = request.POST.get('contact'),
-#                     total_price = request.POST.get('total_price')
-#                 )
-#             order.save()
-#             return redirect('check_out')
-        
-# def delete_address(request):
-#     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-#         address_id = request.POST.get('id')
-#         try:
-#             order_details = Order_details.objects.get(id=address_id)
-#             order_details.delete()
-#             return JsonResponse({'message': 'Address deleted successfully'}, status=200)
-#         except Order_details.DoesNotExist:
-#             return JsonResponse({'error': 'Address not found'}, status=404)
-#     else:
-#         return JsonResponse({'error': 'Invalid request'}, status=400)
+@never_cache    
+def myorder(request):
+    try:
+        user=User.objects.get(email=request.session['email'])
+        cart=Cart.objects.filter(user=user,pyment_status=True)
+        return render(request,"myorder.html",{'cart':cart})
+    except:
+        return redirect("index")
+
 # # seller viwes start 
 
 @never_cache
@@ -525,4 +513,3 @@ def product_delete(request,pk):
     msg="Product Deleted Suceesfully"
     messages.success(request,msg)
     return redirect('view_product')
-
