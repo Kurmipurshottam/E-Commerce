@@ -21,7 +21,7 @@
         <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
             <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
                 <!-- Change Password Form -->
-                <form id="changePasswordForm" method="post" action="{% url 'reset_password' %}">
+                <form id="changePasswordForm" method="post" action="{% url 'email_reset' %}">
                     {% csrf_token %}
                     <h4 class="mtext-105 cl2 txt-center p-b-30">
                         Reset Password
@@ -38,6 +38,9 @@
 
                     <input class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value = "Change password ">
                         
+                    </input>
+                    
+                
                 </form>
             </div>
         </div>

@@ -135,3 +135,9 @@ RAZORPAY_KEY_ID = 'rzp_test_3dk2T5kDL7N1vH'
 RAZORPAY_KEY_SECRET = '85Jib60vq1uchY6NZyMFDf7F'
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+
+EMAIL_USE_TLS= True
+EMAIL_HOST= 'smtp.gmail.com'
+EMAIL_HOST_USER= 'kurmipurshottam@gmail.com'
+EMAIL_HOST_PASSWORD= 'ozgl krwe uaxq affg'
+EMAIL_PORT= 587 

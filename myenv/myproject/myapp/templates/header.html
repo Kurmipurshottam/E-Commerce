@@ -85,7 +85,7 @@
 								<a href="{% url "contact" %}">Contact</a>
 							</li>
 						
-							{% if request.session.email %}
+							{% if request.session.first_name %}
 							<ul class="main-menu">
 								<li>
 									<button style="font-size: 1.2rem;"><i class="zmdi zmdi-assignment-account" style="color: black;">  My Account</i></button>
@@ -115,7 +115,7 @@
 						</div>
 
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header">
-							{% if request.session.email %}
+							{% if request.session.first_name %}
 							<a href="{% url "shoping_cart" %}" style="text-decoration: none; color: black;"><i class="zmdi zmdi-shopping-cart icon-header-noti" data-notify={{request.session.cart}}></i></a>
 							{% else %}
 							<a href="{% url "login" %}" style="text-decoration: none; color: black;"><i class="zmdi zmdi-shopping-cart"></i></a>
@@ -123,7 +123,7 @@
 						</div>
 
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header" >
-							{% if request.session.email %}
+							{% if request.session.first_name %}
 							<a href="{% url "wishlist" %}" style="text-decoration: none; color: black;"><i class="zmdi zmdi-favorite-outline icon-header-noti" data-notify={{request.session.wishlist}}></i></a>
 							{% else %}
 							<a href="{% url "login" %}" style="text-decoration: none; color: black;"><i class="zmdi zmdi-favorite-outline"></i></a>
@@ -146,7 +146,7 @@
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
 					<i class="zmdi zmdi-search"></i>
 				</div>
-				{% if request.session.email %}
+				{% if request.session.first_name %}
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10">
 					<a href="{% url 'shoping_cart' %}" style="text-decoration: none; color: black;"><i class="zmdi zmdi-shopping-cart"></i></a>
 				</div> 
@@ -207,7 +207,7 @@
 					<a href="{% url "contact" %}">Contact</a>
 				</li>
 			
-				{% if request.session.email %}
+				{% if request.session.first_name %}
 				<ul class="main-menu-m">
 					<li>
 						<a><i class="zmdi zmdi-assignment-account" style="color: white;">  My Account</i></a>
@@ -282,7 +282,7 @@
 		</div>
 	</header>
 
-		{% if not request.session.email %}	
+		{% if not request.session.first_name %}	
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
 		<div class="s-full js-hide-cart"></div>

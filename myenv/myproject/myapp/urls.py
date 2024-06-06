@@ -54,6 +54,9 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('myorder/', views.myorder, name='myorder'),
     path('payment/', views.payment, name='payment'),
+    path('email_otp/', views.email_otp, name='email_otp'),
+    path('email_reset/', views.email_reset, name='email_reset'),
+
     
     
 ]

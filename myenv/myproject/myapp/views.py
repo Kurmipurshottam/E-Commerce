@@ -9,6 +9,9 @@ import requests
 from django.conf import settings
 import razorpay
 from django.views.decorators.cache import never_cache
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your views here.
 @never_cache
@@ -167,14 +170,69 @@ def profile(request):
 
 @never_cache
 def forget_password(request):
-    return render(request,"forgetpassword.html")
+    if request.POST:
+        email = request.POST['email']
+        request.session['email']=request.POST['email']
+        print(email)
+        e_otp=random.randint(1001,9999)
+        request.session['e_otp']=e_otp
+        print(e_otp)
+        mymailfunction("Welcome to Forget Password","email_send_template",email,{'email':email,"e_otp":e_otp})
+        return render(request,"email_otp.html")
+    else:
+        return render(request,"forgetpassword.html")
+
+def mymailfunction(subject,template,to,context):
+    template_str = template+'.html'
+    html_message = render_to_string(template_str, {'data': context})
+    plain_message = strip_tags(html_message)
+    from_email = 'kurmipurshottam@gmail.com'
+    send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+
+
+def email_otp(request):
+    if request.POST:
+        otp=int(request.session['e_otp'])
+        uotp=int(request.POST['uotp'])
+        print(otp)
+        print(uotp)
+        if otp==uotp:
+            print("hello")
+            del request.session['e_otp']
+            return render(request,"email_reset.html")
+        else:
+            msg="Invalid OTP"
+            messages.error(request,msg)
+            return render(request,"otp.html")
+    else:
+        return render(request,"otp.html")
+
+
+def email_reset(request):
+     if request.POST:
+            user= User.objects.get(email=request.session['email'])
+            if request.POST['npassword']==request.POST['ncpassword']:
+                user.password=request.POST['ncpassword']
+                user.save()
+                msg="password reset successfuly" 
+                messages.success(request,msg)
+                del request.session['email']
+                return render(request,"login.html")
+               
+            else:
+                msg="New Password and Confirm New Password Does Not Match" 
+                messages.error(request,msg)
+                return render(request,"email_reset.html")
+          
+     else:
+          return render(request,"email_reset.html")   
 
 @never_cache
 def forgetpassword_phone(request):
     if request.POST:
         try:
             print("page load")
-            user=User.objects.get(contact=request.POST['contact'])
+            # user=User.objects.get(contact=request.POST['contact'])
             mobile=request.POST['contact']
             print("mobile = ",mobile)
             otp=random.randint(1001,9999)
