@@ -1,3 +1,4 @@
+
 {% extends "header.html" %}
 {% load static %}
 {% block content %}
@@ -6,12 +7,12 @@
 <br>
 <head>
 
-	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
-		<h2 class="ltext-105 cl0 txt-center">
-			signup
-		</h2>
-	</section>	
+    <!-- Title page -->
+    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
+        <h2 class="ltext-105 cl0 txt-center">
+            Signup
+        </h2>
+    </section>    
 
 <!-- Content page -->
 
@@ -21,42 +22,50 @@
         <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
             <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
 
-                <form method="POST" action="{% url 'signup' %}" enctype="multipart/form-data">
+                <form method="POST" action="{% url 'signup' %}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     {% csrf_token %}
-
+                    <span id="emailMessage" style="color:red;"></span>
                     <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder=" Enter Email">
+                        <input id="email" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder=" Enter Email">
+                    </div>
+                    
+                    <span id="first_nameMessage" style="color:red;"></span>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input id="first_name" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name" placeholder="Enter First Name">   
+                    </div>
+                    
+                    <span id="last_nameMessage" style="color:red;"></span>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input id="last_name" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name" placeholder="Enter Last Name">
                         
                     </div>
 
+                    <span id="contactMessage" style="color:red;"></span>
                     <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name" placeholder="Enter First Name">
+                        <input id="contact" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact" placeholder="Enter Contact Number">
+                        
                     </div>
 
+                    <span id="passwordMessage" style="color:red;"></span>
                     <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name" placeholder="Enter Last Name">
+                        <input id="password" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="Enter Password">      
                     </div>
 
-                    <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact" placeholder="Enter Contact Number">
-                    </div>
-
-                    <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="Enter Password">
-                    </div>
-
+                    <span id="cpasswordMessage" style="color:red;"></span>
                     <div class="bor8 m-b-30 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="cpassword" placeholder="Enter Confirm Password">
+                        <input id="cpassword" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="cpassword" placeholder="Enter Confirm Password">   
                     </div>
 
+                    <span id="userTypeMessage" style="color:red;"></span>
                     <div class="bor8 m-b-30 how-pos4-parent">
-                        <select name="user-type" style="width: 35.5rem; height: 3rem;">
-                            <option value="buyer" name="user-type" style="text-align: center;">B u y e r</option>
-                            <option value="seller" name="user-type" style="text-align: center;">S e l l e r</option>
+                        <select id="user-type" name="user-type" style="width: 29.5rem; height: 3rem;">
+                            <option value="buyer" name="user-type" style="text-align: center;">Buyer</option>
+                            <option value="seller" name="user-type" style="text-align: center;">Seller</option>
                         </select>
+                        
                     </div>
 
-                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" null="True">
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
                         Sign Up
                     </button>
                 </form>
@@ -78,7 +87,94 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-        // ragistration sucessfully 
+//validations
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var first_name = document.getElementById("first_name").value;
+            var last_name = document.getElementById("last_name").value;
+            var contact = document.getElementById("contact").value;
+            var password = document.getElementById("password").value;
+            var cpassword = document.getElementById("cpassword").value;
+            var user_type = document.getElementById("user-type").value;
+
+            var isValid = true;
+
+            // Email validation
+            if (email === "") {
+                document.getElementById("emailMessage").innerHTML = "Email is required.";
+                isValid = false;
+            } else {
+                // Regular expression to validate email format
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById("emailMessage").innerHTML = "Invalid email format.";
+                    isValid = false;
+                } else {
+                    document.getElementById("emailMessage").innerHTML = "";
+                }
+            }
+
+            // First name validation
+            if (first_name === "") {
+                document.getElementById("first_nameMessage").innerHTML = "First name is required.";
+                isValid = false;
+            } else {
+                document.getElementById("first_nameMessage").innerHTML = "";
+            }
+
+            // Last name validation
+            if (last_name === "") {
+                document.getElementById("last_nameMessage").innerHTML = "Last name is required.";
+                isValid = false;
+            } else {
+                document.getElementById("last_nameMessage").innerHTML = "";
+            }
+
+            // Contact validation
+            if (contact === "") {
+                document.getElementById("contactMessage").innerHTML = "Contact number is required.";
+                isValid = false;
+            } else {
+                document.getElementById("contactMessage").innerHTML = "";
+            }
+
+            // Password validation
+            if (password === "") {
+                document.getElementById("passwordMessage").innerHTML = "Password is required.";
+                isValid = false;
+            } else if (password.length < 8) {
+                document.getElementById("passwordMessage").innerHTML = "Password must be at least 8 characters long.";
+                isValid = false;
+            } else {
+                document.getElementById("passwordMessage").innerHTML = "";
+            }
+
+            // Confirm Password validation
+            if (cpassword === "") {
+                document.getElementById("cpasswordMessage").innerHTML = "Confirm Password is required.";
+                isValid = false;
+            } else if (cpassword !== password) {
+                document.getElementById("cpasswordMessage").innerHTML = "Passwords do not match.";
+                isValid = false;
+            } else {
+                document.getElementById("cpasswordMessage").innerHTML = "";
+            }
+
+            // User type validation
+            if (user_type === "") {
+                document.getElementById("userTypeMessage").innerHTML = "Please select a user type.";
+                isValid = false;
+            } else {
+                document.getElementById("userTypeMessage").innerHTML = "";
+            }
+
+            return isValid;
+        }
+
+    //end validations
+</script>
+<script>
+        // Registration successfully
         document.addEventListener("DOMContentLoaded", function () {
         {% if messages %}
             {% for message in messages %}
@@ -91,7 +187,7 @@
         {% endif %}
     });
 
-    // email alredy exsits
+    // Email already exists
     {% if messages %}
         {% for message in messages %}
             Swal.fire({
@@ -102,7 +198,7 @@
         {% endfor %}
     {% endif %}
 
-    // upassword and ucpassword can not be same show sweetalert msg
+    // Password and confirm password do not match
     {% if pmsg %}
     Swal.fire({
         title: 'Error!',
@@ -112,8 +208,4 @@
     });
     {% endif %}
 </script>
-    
-
-
-    
 {% endblock %}

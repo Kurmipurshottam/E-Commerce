@@ -254,22 +254,25 @@ def shop(request,cat):
 
 @never_cache
 def buyer_product_details(request,pk):
-    wishlist_flag=False
-    cart_flag=False
-    product=Product.objects.get(pk=pk)
-    user=User.objects.get(email=request.session['email'])
     try:
-        Wishlist.objects.get(user=user,product=product)
-        wishlist_flag=True
+        wishlist_flag=False
+        cart_flag=False
+        product=Product.objects.get(pk=pk)
+        user=User.objects.get(email=request.session['email'])
+        try:
+            Wishlist.objects.get(user=user,product=product)
+            wishlist_flag=True
+        except:
+            pass
+        try:
+            Cart.objects.get(user=user,product=product)
+            cart_flag=True
+        except:
+            pass
+        print("==========================##################@@@@@@@@@@@@@@@@@@@@@@@",product)
+        return render(request,'buyer_product_details.html',{'product':product,'wishlist_flag':wishlist_flag,'cart_flag':cart_flag})
     except:
-        pass
-    try:
-        Cart.objects.get(user=user,product=product)
-        cart_flag=True
-    except:
-        pass
-    print("==========================##################@@@@@@@@@@@@@@@@@@@@@@@",product)
-    return render(request,'buyer_product_details.html',{'product':product,'wishlist_flag':wishlist_flag,'cart_flag':cart_flag})
+        return render(request,'index.html')
 
 @never_cache
 def home_2(request):
@@ -310,10 +313,13 @@ def logout(request):
 
 @never_cache
 def add_to_wishlist(request,pk):
-    user=User.objects.get(email=request.session['email'])
-    product=Product.objects.get(pk=pk)
-    Wishlist.objects.create(user=user,product=product)
-    return redirect("wishlist")
+    try:
+        user=User.objects.get(email=request.session['email'])
+        product=Product.objects.get(pk=pk)
+        Wishlist.objects.create(user=user,product=product)
+        return redirect("wishlist")
+    except:
+        return redirect("index")
 
 @never_cache
 def wishlist(request):
