@@ -1,0 +1,421 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: http://127.0.0.1:8000/
+Subject: Resume Builder
+Date: Sat, 8 Jun 2024 11:44:13 +0530
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--qZH1RAtEYYgjlnBbyvMwjECzSCGUVmhcEfvZPLyxro----"
+
+
+------MultipartBoundary--qZH1RAtEYYgjlnBbyvMwjECzSCGUVmhcEfvZPLyxro----
+Content-Type: text/html
+Content-ID: <frame-D48A889751C6B7B61BC549A72AC2DD80@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://127.0.0.1:8000/
+
+<!DOCTYPE html><html lang=3D"en"><head><meta http-equiv=3D"Content-Type" co=
+ntent=3D"text/html; charset=3DUTF-8"><link rel=3D"stylesheet" type=3D"text/=
+css" href=3D"cid:css-27dc2ff7-38a0-4216-bf89-8046d4a6f674@mhtml.blink" />
+   =20
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=
+=3D1.0">
+    <title>Resume Builder</title>
+    <link href=3D"https://fonts.googleapis.com/css2?family=3DRoboto:wght@40=
+0;700&amp;display=3Dswap" rel=3D"stylesheet">
+   =20
+</head>
+<body>
+    <h1>Resume Builder</h1>
+
+    <form id=3D"resume-form" action=3D"http://127.0.0.1:8000/resume/" metho=
+d=3D"post">
+       =20
+
+        <div class=3D"form-container">
+            <h2>Personal Information</h2>
+            <div class=3D"form-group">
+                <label for=3D"name">Name:</label>
+                <input type=3D"text" id=3D"name" name=3D"name" required=3D"=
+">
+                <div class=3D"error" id=3D"name-error">This field is requir=
+ed.</div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"about">About:</label>
+                <textarea type=3D"text" id=3D"about" name=3D"about" require=
+d=3D""></textarea>
+                <div class=3D"error" id=3D"about-error">This field is requi=
+red.</div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"age">Age:</label>
+                <input type=3D"text" id=3D"age" name=3D"age" required=3D"">
+                <div class=3D"error" id=3D"age-error">This field is require=
+d.</div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"email">Email:</label>
+                <input type=3D"text" id=3D"email" name=3D"email" required=
+=3D"">
+                <div class=3D"error" id=3D"email-error">Please enter a vali=
+d email.</div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"phone">Phone:</label>
+                <input type=3D"text" id=3D"phone" name=3D"phone" required=
+=3D"">
+                <div class=3D"error" id=3D"phone-error">Please enter a vali=
+d phone number.</div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"skills">Skills:</label>
+                <div class=3D"om">
+                    <input type=3D"text" id=3D"skill1" name=3D"skill1" requ=
+ired=3D"">
+                    <input type=3D"text" id=3D"skill2" name=3D"skill2">
+                    <input type=3D"text" id=3D"skill3" name=3D"skill3">
+                    <input type=3D"text" id=3D"skill4" name=3D"skill4">
+                    <input type=3D"text" id=3D"skill5" name=3D"skill5">
+                </div>
+                <div class=3D"error" id=3D"skills-error">At least one skill=
+ is required.</div>
+            </div>
+
+            <h2>Education</h2>
+
+            <!-- Education 1 -->
+            <div class=3D"form-group">
+                <label for=3D"education1">Education 1:</label>
+            </div>
+            <div class=3D"ed">
+                <div class=3D"form-group">
+                    <label for=3D"degree1">Degree:</label>
+                    <input type=3D"text" id=3D"degree1" name=3D"degree1" re=
+quired=3D"">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"college1">College:</label>
+                    <input type=3D"text" id=3D"college1" name=3D"college1" =
+required=3D"">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"year1">Year:</label>
+                    <input type=3D"text" id=3D"year1" name=3D"year1" requir=
+ed=3D"">
+                </div>
+            </div>
+
+            <!-- Education 2 -->
+            <div class=3D"form-group">
+                <label for=3D"education2">Education 2:</label>
+            </div>
+            <div class=3D"ed">
+                <div class=3D"form-group">
+                    <label for=3D"degree2">Degree:</label>
+                    <input type=3D"text" id=3D"degree2" name=3D"degree2">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"college2">College:</label>
+                    <input type=3D"text" id=3D"college2" name=3D"college2">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"year2">Year:</label>
+                    <input type=3D"text" id=3D"year2" name=3D"year2">
+                </div>
+            </div>
+
+            <!-- Education 3 -->
+            <div class=3D"form-group">
+                <label for=3D"education3">Education 3:</label>
+            </div>
+            <div class=3D"ed">
+                <div class=3D"form-group">
+                    <label for=3D"degree3">Degree:</label>
+                    <input type=3D"text" id=3D"degree3" name=3D"degree3">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"college3">College:</label>
+                    <input type=3D"text" id=3D"college3" name=3D"college3">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"year3">Year:</label>
+                    <input type=3D"text" id=3D"year3" name=3D"year3">
+                </div>
+            </div>
+
+            <h2>Languages</h2>
+            <div class=3D"form-group">
+                <label for=3D"languages">Languages:</label>
+                <div class=3D"om">
+                    <input type=3D"text" id=3D"lang1" name=3D"lang1">
+                    <input type=3D"text" id=3D"lang2" name=3D"lang2">
+                    <input type=3D"text" id=3D"lang3" name=3D"lang3">
+                </div>
+            </div>
+
+            <h2>Projects</h2>
+
+            <!-- Project 1 -->
+            <div class=3D"form-group">
+                <label for=3D"project1">Project 1:</label>
+            </div>
+            <div class=3D"com">
+                <div class=3D"form-group">
+                    <label for=3D"project1">Project Title:</label>
+                    <input type=3D"text" id=3D"project1" name=3D"project1">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"durat1">Duration:</label>
+                    <input type=3D"text" id=3D"durat1" name=3D"durat1">
+                </div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"desc1">Description:</label>
+                <textarea id=3D"desc1" name=3D"desc1"></textarea>
+            </div>
+
+            <!-- Project 2 -->
+            <div class=3D"form-group">
+                <label for=3D"project2">Project 2:</label>
+            </div>
+            <div class=3D"com">
+                <div class=3D"form-group">
+                    <label for=3D"project2">Project Title:</label>
+                    <input type=3D"text" id=3D"project2" name=3D"project2">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"durat2">Duration:</label>
+                    <input type=3D"text" id=3D"durat2" name=3D"durat2">
+                </div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"desc2">Description:</label>
+                <textarea id=3D"desc2" name=3D"desc2"></textarea>
+            </div>
+
+            <h2>Experience</h2>
+
+            <!-- Experience 1 -->
+            <div class=3D"form-group">
+                <label for=3D"experience1">Experience 1:</label>
+            </div>
+            <div class=3D"com">
+                <div class=3D"form-group">
+                    <label for=3D"company1">Company Name:</label>
+                    <input type=3D"text" id=3D"company1" name=3D"company1">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"post1">Post:</label>
+                    <input type=3D"text" id=3D"post1" name=3D"post1">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"duration1">Duration:</label>
+                    <input type=3D"text" id=3D"duration1" name=3D"duration1=
+">
+                </div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"desc1">Description:</label>
+                <textarea id=3D"desc1" name=3D"desc1"></textarea>
+            </div>
+
+            <!-- Experience 2 -->
+            <div class=3D"form-group">
+                <label for=3D"experience2">Experience 2:</label>
+            </div>
+            <div class=3D"com">
+                <div class=3D"form-group">
+                    <label for=3D"company2">Company Name:</label>
+                    <input type=3D"text" id=3D"company2" name=3D"company2">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"post2">Post:</label>
+                    <input type=3D"text" id=3D"post2" name=3D"post2">
+                </div>
+                <div class=3D"form-group">
+                    <label for=3D"duration2">Duration:</label>
+                    <input type=3D"text" id=3D"duration2" name=3D"duration2=
+">
+                </div>
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"desc2">Description:</label>
+                <textarea id=3D"desc2" name=3D"desc2"></textarea>
+            </div>
+
+            <h2>Achievements</h2>
+            <div class=3D"form-group">
+                <label for=3D"ach1">First:</label>
+                <input type=3D"text" id=3D"ach1" name=3D"ach1">
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"ach2">Second:</label>
+                <input type=3D"text" id=3D"ach2" name=3D"ach2">
+            </div>
+            <div class=3D"form-group">
+                <label for=3D"ach3">Third:</label>
+                <input type=3D"text" id=3D"ach3" name=3D"ach3">
+            </div>
+
+            <button type=3D"submit" class=3D"btn1">Submit</button>
+        </div>
+    </form>
+
+   =20
+
+
+</body></html>
+------MultipartBoundary--qZH1RAtEYYgjlnBbyvMwjECzSCGUVmhcEfvZPLyxro----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-27dc2ff7-38a0-4216-bf89-8046d4a6f674@mhtml.blink
+
+@charset "utf-8";
+
+body { font-family: Roboto, sans-serif; background-color: rgb(233, 236, 239=
+); margin: 0px; padding: 0px; }
+
+.form-container { width: 60%; margin: 30px auto; padding: 30px; background-=
+color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; bor=
+der-radius: 12px; animation: 0.5s ease-out 0s 1 normal none running fadeInU=
+p; }
+
+.form-group { margin-bottom: 20px; }
+
+.form-group label { display: block; font-weight: bold; margin-bottom: 8px; =
+animation: 0.5s ease-out 0s 1 normal none running fadeInLeft; }
+
+.form-group input[type=3D"text"], .form-group textarea { width: 100%; paddi=
+ng: 12px; border: 1px solid rgb(204, 204, 204); border-radius: 6px; box-siz=
+ing: border-box; transition: border-color 0.3s ease 0s; background-color: r=
+gb(248, 249, 250); }
+
+.form-group input[type=3D"text"]:focus, .form-group textarea:focus { border=
+-color: rgb(0, 123, 255); }
+
+.form-group textarea { height: 120px; }
+
+.om, .ed, .com { display: flex; gap: 15px; flex-wrap: wrap; }
+
+.om input[type=3D"text"], .ed input[type=3D"text"], .com input[type=3D"text=
+"] { flex: 1 1 0%; min-width: 120px; }
+
+.btn1 { display: block; width: fit-content; margin: 30px auto; padding: 15p=
+x 30px; font-size: 16px; font-weight: bold; background-color: rgb(0, 123, 2=
+55); color: rgb(255, 255, 255); border: none; border-radius: 8px; cursor: p=
+ointer; transition: background-color 0.3s ease 0s; animation: 0.5s ease-out=
+ 0s 1 normal none running fadeInUp; }
+
+.btn1:hover { background-color: rgb(0, 86, 179); }
+
+h1 { text-align: center; color: rgb(0, 123, 255); font-size: 42px; margin-t=
+op: 20px; margin-bottom: 40px; animation: 0.5s ease-out 0s 1 normal none ru=
+nning fadeInDown; }
+
+h2 { color: rgb(51, 51, 51); border-bottom: 2px solid rgb(0, 123, 255); pad=
+ding-bottom: 5px; margin-bottom: 20px; animation: 0.5s ease-out 0s 1 normal=
+ none running fadeInLeft; }
+
+@keyframes fadeInUp {=20
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0px); }
+}
+
+@keyframes fadeInDown {=20
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0px); }
+}
+
+@keyframes fadeInLeft {=20
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0px); }
+}
+
+@media (max-width: 768px) {
+  .form-container { width: 90%; }
+  .om, .ed, .com { flex-direction: column; }
+}
+
+.error { color: red; font-size: 14px; display: none; }
+------MultipartBoundary--qZH1RAtEYYgjlnBbyvMwjECzSCGUVmhcEfvZPLyxro----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap
+
+@charset "utf-8";
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 400; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu=
+92Fr1Mu72xKOzY.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C=
+88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 400; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu=
+92Fr1Mu5mxKOzY.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+=
+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 400; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu=
+92Fr1Mu7mxKOzY.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 400; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu=
+92Fr1Mu4WxKOzY.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F=
+, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 400; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu=
+92Fr1Mu7WxKOzY.woff2") format("woff2"); unicode-range: U+102-103, U+110-111=
+, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-3=
+09, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 400; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu=
+92Fr1Mu7GxKOzY.woff2") format("woff2"); unicode-range: U+100-2AF, U+304, U+=
+308, U+329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2=
+113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 400; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu=
+92Fr1Mu4mxK.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-15=
+3, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+2074=
+, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 700; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu=
+92Fr1MmWUlfCRc4EsA.woff2") format("woff2"); unicode-range: U+460-52F, U+1C8=
+0-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 700; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu=
+92Fr1MmWUlfABc4EsA.woff2") format("woff2"); unicode-range: U+301, U+400-45F=
+, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 700; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu=
+92Fr1MmWUlfCBc4EsA.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 700; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu=
+92Fr1MmWUlfBxc4EsA.woff2") format("woff2"); unicode-range: U+370-377, U+37A=
+-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 700; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu=
+92Fr1MmWUlfCxc4EsA.woff2") format("woff2"); unicode-range: U+102-103, U+110=
+-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+3=
+08-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 700; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu=
+92Fr1MmWUlfChc4EsA.woff2") format("woff2"); unicode-range: U+100-2AF, U+304=
+, U+308, U+329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,=
+ U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Roboto; font-style: normal; font-weight: 700; fon=
+t-display: swap; src: url("https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu=
+92Fr1MmWUlfBBc4.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+15=
+2-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+=
+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+------MultipartBoundary--qZH1RAtEYYgjlnBbyvMwjECzSCGUVmhcEfvZPLyxro------
