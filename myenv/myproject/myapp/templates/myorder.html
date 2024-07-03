@@ -12,7 +12,7 @@
 		<div class="row">
 			
 			<div class="col-lg-10 col-xl-9 m-lr-auto m-b-50" style="margin-left: 8rem;">
-				          
+				{% if cart %}      
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
 							<table class="table-shopping-cart">
@@ -26,22 +26,29 @@
 									<th class="column-7"></th>
 										
 								</tr>
-								{% for i in cart %}
-								<tr class="table_row">
-									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="{{i.product.product_picture.url}}" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2">{{i.product.product_name}}</td>
-									<td class="column-3">{{i.product.price}}</td>
-									<td class="column-4">{{i.quantity}}</td>
-									<td class="column-5">{{i.total_price}}</td>
-                                </tr>
-								{% endfor %}
+								
+									{% for i in cart %}
+									<tr class="table_row">
+										<td class="column-1">
+											<div class="how-itemcart1">
+												<img src="{{i.product.product_picture.url}}" alt="IMG">
+											</div>
+										</td>
+										<td class="column-2">{{i.product.product_name}}</td>
+										<td class="column-3">{{i.product.price}}</td>
+										<td class="column-4">{{i.quantity}}</td>
+										<td class="column-5">{{i.total_price}}</td>
+									</tr>
+									{% endfor %}
+								
 							</table>
 						</div>
 					</div>
+					{% else %}
+					<br><br><br><br>
+						<h3>No Order</h3>
+						<br><br><br>
+					{% endif %}
 				</div>
 
 				</div>

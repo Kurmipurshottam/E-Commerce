@@ -451,7 +451,9 @@ def change_quantity(request,pk):
     return redirect("shoping_cart") 
 
 def payment(request):
-    return render(request,"payment.html")
+    total = request.session['total']
+    print(total)
+    return render(request,"payment.html",{'total':total})
 
 @never_cache
 def check_out(request):
