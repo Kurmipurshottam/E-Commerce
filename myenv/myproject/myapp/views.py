@@ -239,7 +239,7 @@ def forgetpassword_phone(request):
             print("otp = ",otp)
             url = "https://www.fast2sms.com/dev/bulkV2"
 
-            querystring = {"authorization":"P0MKNYqSmOLhjIyp4HDr35nTtsodiwx2uvXcQBa7JVC9g6WE1AGS9KE2gP0cMD3qdI6VRlyZJipe5hAx",
+            querystring = {"authorization":"xLEIvrXScdrp80XQxFB9wL26fc6qTAlUYGLVH101hjK5Ywf1JHdJcOF5mRGi",
                            "variables_values":str(otp),
                            "route":"otp",
                            "numbers":mobile}
