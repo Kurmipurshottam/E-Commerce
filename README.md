@@ -7,4 +7,4 @@
   experience, allowing convenient browsing, purchasing, and selling of clothing items, complete with dynamic content and 
   visually appealing design elements.
 
-# https://docs.google.com/document/d/10n4B04wcJfa8PBVARSHo3aj6Wwk4Z2JQZg8WLSwQVjM/edit#heading=h.peqyd234hsxx
+
